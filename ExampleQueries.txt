@@ -1,0 +1,82 @@
+1. 
+query GamesQuery($id:ID!) {
+  author(id: $id) {
+    name,
+    reviews {
+      rating,
+      content,
+    }
+  }
+}
+
+Variables:
+{
+  "id": "2"
+}
+
+2.
+query ReviewQuery($id:ID!) {
+  review(id: $id) {
+    rating,
+    game {
+      title,
+      platform
+      reviews {
+        rating
+      }
+    }
+  }
+}
+
+Variables:
+{
+  "id": "2"
+}
+
+3. 
+mutation DeleteMutation($deleteGameId: ID!){
+  deleteGame(id: $deleteGameId) {
+    id,title,platform
+  }
+}
+
+Variables:
+{
+  "id": "2"
+}
+
+4.
+mutation AddMutation($game: AddGameInput!){
+  addGame(game: $game) {
+    id,title,platform
+  }
+}
+
+Variables:
+{
+  "game": {
+    "title" : "Clash Royale",
+    "platform": ["Mobile"]
+  }
+}
+
+5.
+mutation EditMutation($updateGameId: ID!, $edits: EditGameInput!){
+  updateGame(id: $updateGameId, edits: $edits) {
+    id,title,platform
+  }
+}
+
+Variables:
+{  "updateGameId": "2",
+  "edits": {
+    "title":"Clash Of Clans"
+  }
+}
+
+Test Query:
+query GamesQuery{
+  games{
+    title
+  }
+}
